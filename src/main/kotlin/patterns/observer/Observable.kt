@@ -1,4 +1,4 @@
-package observer
+package patterns.observer
 
 interface Observable {
     fun addObserver(observer: Observer)

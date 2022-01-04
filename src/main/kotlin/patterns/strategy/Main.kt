@@ -1,4 +1,4 @@
-package strategy
+package patterns.strategy
 
 private fun main() {
     val queen = Queen()

@@ -1,4 +1,4 @@
-package builder
+package patterns.builder
 
 class Hamburger private constructor(
     val cheese: Boolean,

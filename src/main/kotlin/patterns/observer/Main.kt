@@ -1,4 +1,4 @@
-package observer
+package patterns.observer
 
 private fun main() {
     val youtubeChannel = YoutubeChannel()

@@ -1,4 +1,4 @@
-package strategy
+package patterns.strategy
 
 abstract class Character {
 

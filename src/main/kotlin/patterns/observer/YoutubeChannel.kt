@@ -1,4 +1,4 @@
-package observer
+package patterns.observer
 
 class YoutubeChannel : Observable {
 
