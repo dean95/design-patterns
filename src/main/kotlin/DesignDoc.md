@@ -58,3 +58,27 @@ Complexity manifests itself in three general ways:
 ### Conclusion
 * You have to continuously invest in good design so that small problems don't accumulate into big ones.
 * The most effective approach is one where every engineer makes continuous small improvements in design.
+
+## Modules Should Be Deep
+* Modular design is a system design where developers only need to face a small fraction of the overall complexity.
+
+### Modular design
+* In modular design, a software system is decomposed into a collection of modules that are relatively independent.
+* The goal of modular design is to minimize dependencies between modules.
+* In order to manage dependencies, we think of each module in two parts:
+  * _interface_ - describes what the module does but not how it does it
+  * _implementation_ - carries out the promises made by the interface
+* The best modules are those whose interfaces are much simpler than their implementations
+
+### What’s in an interface?
+* The interface to a module contains two kinds of information:
+  * formal - specified explicitly in the code.
+  * informal - not specified in a way that can be understood or enforced by the programming language (high-level behavior).
+* The informal aspects of an interface can only be described using comments, and the programming language cannot ensure that the description is complete or accurate.
+* One of the benefits of a clearly specified interface is that it indicates exactly what developers need to know in order to use the associated module.
+
+### Abstractions
+* An abstraction is a simplified view of an entity, which omits unimportant details.
+* Abstractions make easier for us to think about and manipulate complex things.
+* In modular programming, each module provides an abstraction in form of its interface.
+* The interface presents a simplified view of the module’s functionality; the details of the implementation are unimportant from the standpoint of the module’s abstraction, so they are omitted from the interface.
