@@ -39,3 +39,22 @@ Complexity manifests itself in three general ways:
 
 ### Conclusion
 * Complexity makes it difficult and risky to modify an existing code base. 
+
+## Working Code Isn't Enough
+* If you want a good design, you must take a more strategic approach where you invest time to produce clean design and fix problems.
+
+### Tactical programming
+* In the tactical approach, your main focus is to get something working, such as a new feature or a bug fix.
+* Tactical programming is short-sighted since it introduces a bit of complexity in order to finish the task more quickly.
+
+### Strategic programming
+* The most important thing is the long-term structure of the system where your primary goal is to produce a great design. This is **strategic programming**.
+* If you program strategically, you will continually make small improvements to the system design. These improvements will slow you down a bit in the short term, but they will speed you up in the long term. 
+
+### How much to invest?
+* The best approach is to make small improvements to the design on a continual basis. This means spending 10-20% of your total development time on improvements.
+* The term _technical debt_ is often used to describe problems caused by tactical programming.
+
+### Conclusion
+* You have to continuously invest in good design so that small problems don't accumulate into big ones.
+* The most effective approach is one where every engineer makes continuous small improvements in design.
