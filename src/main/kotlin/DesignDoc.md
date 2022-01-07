@@ -82,3 +82,29 @@ Complexity manifests itself in three general ways:
 * Abstractions make easier for us to think about and manipulate complex things.
 * In modular programming, each module provides an abstraction in form of its interface.
 * The interface presents a simplified view of the module’s functionality; the details of the implementation are unimportant from the standpoint of the module’s abstraction, so they are omitted from the interface.
+
+### Deep modules
+* **Deep modules** are modules that provide powerful functionality yet have simple interfaces.
+* A deep module is a good abstraction because only a small fraction of its internal complexity is visible to its users.
+* A module’s interface represents the complexity that the module imposes on the rest of the system: the smaller and simpler the interface, the less complexity that it introduces.
+
+### Shallow modules
+* A **shallow module** is one whose interface is relatively complex in comparison to the functionality that it provides.
+* An example of a shallow method:
+
+```
+private void addNullValueForAttribute(String attribute) {
+    data.put(attribute, null);
+}
+```
+
+* The method offers no abstraction, since all of its functionality is visible through its interface.
+* The method adds complexity (in the form of a new interface for developers to learn) but provides no compensating benefit.
+
+> **Red Flag: Shallow Module**
+> 
+> A shallow module is one whose interface is complicated relative to the functionality it provides. Shallow modules don’t help much in the battle against complexity, because the benefit they provide (not having to learn about how they work internally) is negated by the cost of learning and using their interfaces.
+
+### Conclusion
+* Users of a module need only understand the abstraction provided by its interface.
+* Modules should be deep, so that they have simple interfaces for the common use cases, yet still provide significant functionality.
