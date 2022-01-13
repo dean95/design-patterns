@@ -108,3 +108,38 @@ private void addNullValueForAttribute(String attribute) {
 ### Conclusion
 * Users of a module need only understand the abstraction provided by its interface.
 * Modules should be deep, so that they have simple interfaces for the common use cases, yet still provide significant functionality.
+
+## Information Hiding (and Leakage)
+* This chapter discusses techniques for creating deep modules.
+
+### Information hiding
+* The most important technique for achieving deep modules is **information hiding**.
+* Each module should encapsulate a few pieces of knowledge, which is embedded in the module’s implementation but does not appear in its interface, so it is not visible to other modules.
+  * Example - How to parse JSON documents.
+* The hidden information includes data structures and algorithms related to the mechanism.
+* Information hiding reduces complexity in two ways:
+  * It simplifies the interface to a module
+  * Information hiding makes it easier to evolve the system
+
+### Information leakage
+* Information leakage occurs when a design decision is reflected in multiple modules which creates a dependency between the modules.
+
+> **Red Flag: Information Leakage**
+>
+>Information leakage occurs when the same knowledge is used in multiple places, such as two different classes that both understand the format of a particular type of file.
+
+### Temporal decomposition
+* In temporal decomposition, the structure of a system corresponds to the time order in which operations will occur.
+
+> **Red Flag: Temporal Decomposition**
+> 
+> In temporal decomposition, execution order is reflected in the code structure: operations that happen at different times are in different methods or classes. If the same knowledge is used at different points in execution, it gets encoded in multiple places, resulting in information leakage.
+
+#### Default values
+* Interfaces should be designed to make the common case as simple as possible.
+* Modules should do "the right thing" without being explicitly asked.
+* The most common use case should be how the module works by default.
+
+> **Red Flag: Overexposure**
+> 
+> If the API for a commonly used feature forces users to learn about other features that are rarely used, this increases the cognitive load on users who don’t need the rarely used features.
