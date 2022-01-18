@@ -143,3 +143,26 @@ private void addNullValueForAttribute(String attribute) {
 > **Red Flag: Overexposure**
 > 
 > If the API for a commonly used feature forces users to learn about other features that are rarely used, this increases the cognitive load on users who don’t need the rarely used features.
+
+## General-Purpose Modules are Deeper
+* One of the most common decisions that you will face when designing a new module is whether to implement it in a general-purpose or special-purpose fashion. 
+  * General-purpose - approach in which you implement a mechanism that can be used to address a broad range of problems.
+  * Special-purpose - building just what you know you need, and specializing it for the way you plan to use it today.
+
+### Make classes somewhat general-purpose
+* The phrase “somewhat general-purpose” means that the module’s functionality should reflect your current needs, but its interface should not.
+* The interface should be easy to use for today’s needs without being tied specifically to them.
+* General-purpose approach results in simpler and deeper interfaces than a special-purpose approach.
+
+### Questions to ask yourself
+* Some questions you can ask yourself which will help you find the right balance between general-purpose and special-purpose for an interface.
+  * What is the simplest interface that will cover all my current needs?
+    * If you reduce the number of methods in an API without reducing its overall capabilities, then you are probably creating more general-purpose methods.
+    * If you have to introduce lots of additional arguments in order to reduce the number of methods, then you may not really be simplifying things.
+  * In how many situations will this method be used?
+    * If a method is designed for one particular use, that is a red flag that it may be too special-purpose. See if you can replace several special-purpose methods with a single general-purpose method.
+  * Is this API easy to use for my current needs?
+    * If you have to write a lot of additional code to use a class for your current purpose, that’s a red flag that the interface doesn’t provide the right functionality.
+
+## Conclusion
+* General-purpose interfaces have many advantages over special-purpose ones. They tend to be simpler, with fewer methods that are deeper. They also provide a cleaner separation between classes, whereas special-purpose interfaces tend to leak information between classes. Making your modules somewhat general-purpose is one of the best ways to reduce overall system complexity.
