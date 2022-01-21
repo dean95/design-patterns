@@ -164,5 +164,53 @@ private void addNullValueForAttribute(String attribute) {
   * Is this API easy to use for my current needs?
     * If you have to write a lot of additional code to use a class for your current purpose, that’s a red flag that the interface doesn’t provide the right functionality.
 
-## Conclusion
+### Conclusion
 * General-purpose interfaces have many advantages over special-purpose ones. They tend to be simpler, with fewer methods that are deeper. They also provide a cleaner separation between classes, whereas special-purpose interfaces tend to leak information between classes. Making your modules somewhat general-purpose is one of the best ways to reduce overall system complexity.
+
+## Different Layer, Different Abstraction
+* Software systems are composed in layers, where higher layers use the facilities provided by lower layers. In a well-designed system, each layer provides a different abstraction from the layers above and below it.
+* If a system contains adjacent layers with similar abstractions, this is a red flag that suggests a problem with the class decomposition.
+
+### Pass-through methods
+* When adjacent layers have similar abstractions, the problem often manifests itself in the form of **pass-through methods**.
+* A pass-through method is one that does little except invoke another method, whose signature is similar or identical to that of the calling method.
+
+> **Red Flag: Pass-Through Method**
+> 
+> A pass-through method is one that does nothing except pass its arguments to another method, usually with the same API as the pass-through method. This typically indicates that there is not a clean division of responsibility between the classes.
+
+* Pass-through methods make classes shallower: they increase the interface complexity of the class, which adds complexity, but they don’t increase the total functionality of the system.
+* Pass-through methods also create dependencies between classes: if the signature of one method changes then all methods will have to change to match.
+* Pass-through methods indicate that there is confusion over the division of responsibility between classes.
+* The interface to a piece of functionality should be in the same class that implements the functionality.
+* The solution to pass-through methods is to refactor the classes so that each class has a distinct and coherent set of responsibilities.
+  * One approach is to expose the lower level class directly to the callers of the higher level class, removing all responsibility for the feature from the higher level class.
+  * Another approach is to redistribute the functionality between the classes.
+  * Finally, if the classes can’t be disentangled, the best solution may be to merge them.
+
+### When is interface duplication OK?
+* Having methods with the same signature is not always bad. The important thing is that each new method should contribute significant functionality. Pass-through methods are bad because they contribute no new functionality.
+* One example where it’s useful for a method to call another method with the same signature is a dispatcher. A dispatcher is a method that uses its arguments to select one of several other methods to invoke.
+* It is fine for several methods to have the same signature as long as each of them provides useful and distinct functionality.
+* Another example is interfaces with multiple implementations. When several methods provide different implementations of the same interface, it reduces cognitive load.
+
+### Decorators
+* The decorator design pattern (also known as a “wrapper”) is one that encourages API duplication across layers. A decorator object takes an existing object and extends its functionality; it provides an API similar or identical to the underlying object, and its methods invoke the methods of the underlying object.
+* The motivation for decorators is to separate special-purpose extensions of a class from a more generic core. However, decorator classes tend to be shallow: they introduce a large amount of boilerplate for a small amount of new functionality. Decorator classes often contain many pass-through methods. It’s easy to overuse the decorator pattern, creating a new class for every small new feature. This results in an explosion of shallow classes.
+* Before creating a decorator class, consider alternatives.
+
+### Interface versus implementation
+* Another application of the “different layer, different abstraction” rule is that the interface of a class should normally be different from its implementation: the representations used internally should be different from the abstractions that appear in the interface. If the two have similar abstractions, then the class probably isn’t very deep.
+
+### Pass-through variables
+* Another form of API duplication across layers is a pass-through variable, which is a variable that is passed down through a long chain of methods.
+* Pass-through variables add complexity because they force all the intermediate methods to be aware of their existence, even though the methods have no use for the variables.
+* If a new variable comes into existence you may have to modify a large number of interfaces and methods to pass the variable through all the relevant paths.
+* Eliminating pass-through variables can be challenging.
+  * One approach is to see if there is already an object shared between the topmost and bottommost methods.
+  * Another approach is to store the information in a global variable.
+  * Another solution is to introduce a context object that stores all the application’s global state (anything that would otherwise be a pass-through variable or global variable).
+
+### Conclusion
+* Each piece of design infrastructure added to a system, such as an interface, argument, function, class, or definition, adds complexity, since developers must learn about this element. In order for an element to provide a net gain against complexity, it must eliminate some complexity that would be present in the absence of the design element. Otherwise, you are better off implementing the system without that particular element. For example, a class can reduce complexity by encapsulating functionality so that users of the class needn’t be aware of it.
+* The “different layer, different abstraction” rule is just an application of this idea: if different layers have the same abstraction, such as pass-through methods or decorators, then there’s a good chance that they haven’t provided enough benefit to compensate for the additional infrastructure they represent. Similarly, pass-through arguments require each of several methods to be aware of their existence (which adds to complexity) without contributing additional functionality.
